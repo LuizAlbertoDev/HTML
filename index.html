@@ -61,7 +61,7 @@
 
     <script>
         function atualizarDashboard() {
-            // ... (mantenha o código de vendas que você já tem aqui) ...
+            
             const vendas = JSON.parse(localStorage.getItem('vendas_atacadopro')) || [];
             let totalSoma = 0;
             vendas.forEach(venda => totalSoma += venda.total);
