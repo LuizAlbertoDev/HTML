@@ -54,29 +54,33 @@
                 </div>
             </button>
         </div>
+        <footer style="margin-top: 30px; text-align: center; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px;">
+    Última sincronização: <span id="ultima-att">--:--:--</span>
+</footer>
     </div>
 
     <script>
         function atualizarDashboard() {
-            // Puxa as vendas que o PDV salvou
+            // ... (mantenha o código de vendas que você já tem aqui) ...
             const vendas = JSON.parse(localStorage.getItem('vendas_atacadopro')) || [];
-            
             let totalSoma = 0;
-            let totalItens = vendas.length;
+            vendas.forEach(venda => totalSoma += venda.total);
 
-            vendas.forEach(venda => {
-                totalSoma += venda.total;
-            });
-
-            // Atualiza a tela
             document.getElementById('vendasHoje').textContent = `R$ ${totalSoma.toFixed(2)}`;
             document.getElementById('lucroHoje').textContent = `R$ ${(totalSoma * 0.3).toFixed(2)}`;
-            document.getElementById('qtdVendas').textContent = totalItens;
+            document.getElementById('qtdVendas').textContent = vendas.length;
+
+            // --- CÓDIGO DA DATA E HORA DE ATUALIZAÇÃO ---
+            const agora = new Date();
+            const dataFormatada = agora.toLocaleDateString('pt-BR');
+            const horaFormatada = agora.toLocaleTimeString('pt-BR');
+
+            // Atualiza o topo (data)
+            document.getElementById('data-atual').textContent = dataFormatada;
             
-            // Data atual
-            const data = new Date();
-            document.getElementById('data-atual').textContent = data.toLocaleDateString('pt-BR');
-        }
+            // Atualiza o rodapé (hora exata da última leitura)
+            document.getElementById('ultima-att').textContent = `${dataFormatada} às ${horaFormatada}`;
+}
 
         function limparDados() {
             if(confirm("Deseja apagar TODO o histórico de vendas?")) {
