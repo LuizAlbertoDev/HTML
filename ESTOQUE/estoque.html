@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTOQUE - ATACADOPRO</title>
+    <link rel="stylesheet" href="estoque.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="estoque-container">
+        <header class="estoque-header">
+            <div class="titulo">
+                <a href="/HTML/index.html" style="text-decoration: none;">
+                    <button class="btn-voltar" style="cursor: pointer;">← DASHBOARD</button>
+                </a>
+                <h1>📦 Gestão de Estoque</h1>
+            </div>
+            <div class="busca-bloco">
+                <input type="text" id="buscaEstoque" placeholder="Pesquisar por nome ou código..." oninput="filtrarEstoque()">
+            </div>
+        </header>
+
+        <div class="estoque-stats">
+            <div class="stat-card">
+                <span class="label">Total de Itens</span>
+                <span id="totalItens" class="valor">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">Valor em Gôndola (Varejo)</span>
+                <span id="valorEstoque" class="valor">R$ 0,00</span>
+            </div>
+        </div>
+
+        <div class="tabela-container">
+            <table class="tabela-estoque">
+                <thead>
+                    <tr>
+                        <th onclick="ordenarPor('codigo')" style="cursor:pointer">CÓD. ↕</th>
+                        <th onclick="ordenarPor('nome')" style="cursor:pointer">NOME DO PRODUTO ↕</th>
+                        <th onclick="ordenarPor('categoria')" style="cursor:pointer">CATEGORIA ↕</th>
+                        <th onclick="ordenarPor('precoVarejo')" style="cursor:pointer">VAREJO ↕</th>
+                        <th onclick="ordenarPor('precoAtacado')" style="cursor:pointer">ATACADO ↕</th>
+                        <th onclick="ordenarPor('qtdAtacado')" style="cursor:pointer">QTD. MÍN ↕</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabela">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/HTML/script.js"></script>
+
+    <script src="/HTML/ESTOQUE/estoque.js"></script>
+
+
+</body>
+</html>

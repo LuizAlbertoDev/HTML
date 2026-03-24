@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATACADOPRO - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dash-header">
+            <div class="logo">🚀 ATACADOPRO <small>Painel Administrativo</small></div>
+            <div id="data-atual">--/--/----</div>
+        </header>
+
+        <div class="dash-cards">
+            <div class="card-metric">
+                <h3>VENDAS HOJE</h3>
+                <div id="vendasHoje" class="valor">R$ 0,00</div>
+            </div>
+            <div class="card-metric lucro">
+                <h3>LUCRO ESTIMADO (30%)</h3>
+                <div id="lucroHoje" class="valor">R$ 0,00</div>
+            </div>
+            <div class="card-metric alerta">
+                <h3>VENDAS (QTD)</h3>
+                <div id="qtdVendas" class="valor">0</div>
+            </div>
+        </div>
+
+        <div class="menu-grid">
+            <a href="/HTML/PDV/pdv.html" class="btn-menu azul">
+                <span class="icon">💰</span>
+                <div class="text">
+                    <strong>ABRIR PDV</strong>
+                    <p>Frente de Caixa</p>
+                </div>
+            </a>
+
+            <a href="/HTML/ESTOQUE/estoque.html" class="btn-menu verde">
+                <span class="icon">📦</span>
+                <div class="text">
+                    <strong>ESTOQUE</strong>
+                    <p>Gestão de Produtos</p>
+                </div>
+            </a>
+
+            <button onclick="limparDados()" class="btn-menu cinza">
+                <span class="icon">⚙️</span>
+                <div class="text">
+                    <strong>LIMPAR DADOS</strong>
+                    <p>Resetar Sistema</p>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function atualizarDashboard() {
+            // Puxa as vendas que o PDV salvou
+            const vendas = JSON.parse(localStorage.getItem('vendas_atacadopro')) || [];
+            
+            let totalSoma = 0;
+            let totalItens = vendas.length;
+
+            vendas.forEach(venda => {
+                totalSoma += venda.total;
+            });
+
+            // Atualiza a tela
+            document.getElementById('vendasHoje').textContent = `R$ ${totalSoma.toFixed(2)}`;
+            document.getElementById('lucroHoje').textContent = `R$ ${(totalSoma * 0.3).toFixed(2)}`;
+            document.getElementById('qtdVendas').textContent = totalItens;
+            
+            // Data atual
+            const data = new Date();
+            document.getElementById('data-atual').textContent = data.toLocaleDateString('pt-BR');
+        }
+
+        function limparDados() {
+            if(confirm("Deseja apagar TODO o histórico de vendas?")) {
+                localStorage.removeItem('vendas_atacadopro');
+                location.reload();
+            }
+        }
+
+        // Executa ao abrir a página
+        window.onload = atualizarDashboard;
+    </script>
+</body>
+</html>

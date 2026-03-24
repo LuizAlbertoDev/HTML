@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAIXA LIVRE - ATACADOPRO</title>
+    <link rel="stylesheet" href="pdv.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="pdv-container">
+        <div class="pdv-topo-barra">
+            <a href="/HTML/index.html" style="text-decoration: none;">
+                    <button class="btn-voltar" style="cursor: pointer;">← DASHBOARD</button>
+                </a>
+            <div class="status-caixa">🟢 CAIXA OPERACIONAL</div>
+        </div>
+
+        <div class="pdv-layout">
+            <div class="pdv-carrinho">
+                <div class="carrinho-header">
+                    <span class="label-total-compra">TOTAL DA COMPRA</span>
+                    <div id="totalPDV" class="total-grande">R$ 0,00</div>
+                </div>
+
+                <input type="text" id="inputBusca" placeholder="BIPAR CÓDIGO OU DIGITAR NOME..." onkeypress="if(event.key === 'Enter') adicionarPorInput()">
+                
+                <div class="lista-itens" id="carrinhoItens">
+                    </div>
+                
+                <div class="pdv-footer">
+                    <button class="btn-pagar" onclick="finalizarVenda()">PAGAR (F2)</button>
+                    <button class="btn-limpar" onclick="limparCarrinho()">LIMPAR</button>
+                </div>
+            </div>
+
+            <div class="pdv-catalogo">
+                <div class="venda-grid-container">
+                    <div class="menu-lateral-categorias" id="menuLateral">
+                        </div>
+                    
+                    <div class="grade-produtos-exibicao" id="gradeProds" style="display: none;">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalQtd" class="modal-overlay">
+        <div class="modal-box">
+            <h2 id="nomeProdQtd">Produto</h2>
+            <div class="info-precos-modal" id="precosModal"></div>
+            <div class="total-produto-modal">
+                <span class="label-total">SUBTOTAL</span>
+                <span id="valorTotalModal" class="valor-fechado">R$ 0,00</span>
+            </div>
+            <div class="controles-qtd">
+                <button onclick="alterarQtd(-1)" class="btn-q-alt menos">-</button>
+                <input type="number" id="qtdInput" value="1" oninput="atualizarCalculoModal()">
+                <button onclick="alterarQtd(1)" class="btn-q-alt mais">+</button>
+            </div>
+            <button class="btn-add-final" onclick="confirmarNoCarrinho()">ADICIONAR AO CAIXA</button>
+            <button class="btn-canc-final" onclick="fecharModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <script src="/HTML/script.js"></script>
+    <script src="pdv.js"></script>
+</body>
+</html>

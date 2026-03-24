@@ -1,0 +1,41 @@
+:root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f8fafc;
+    --accent: #3b82f6;
+    --success: #10b981;
+    --danger: #f43f5e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body { background-color: var(--bg); color: var(--text); padding: 40px; }
+
+.dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.logo { font-size: 24px; font-weight: 900; letter-spacing: -1px; }
+.logo small { font-weight: 400; color: #64748b; font-size: 14px; display: block; }
+
+/* Cards de Cima */
+.dash-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+.card-metric { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #334155; }
+.card-metric h3 { font-size: 12px; color: #94a3b8; margin-bottom: 10px; letter-spacing: 1px; }
+.card-metric .valor { font-size: 32px; font-weight: 900; color: var(--accent); }
+.lucro .valor { color: var(--success); }
+.alerta .valor { color: #f59e0b; }
+
+/* Botões do Menu */
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.btn-menu { 
+    text-decoration: none; background: var(--card); padding: 25px; border-radius: 20px;
+    display: flex; align-items: center; gap: 20px; border: 1px solid #334155;
+    transition: all 0.3s ease; cursor: pointer; color: white;
+}
+.btn-menu:hover { transform: translateY(-5px); border-color: var(--accent); background: #263349; }
+
+.icon { font-size: 40px; }
+.text strong { font-size: 18px; display: block; margin-bottom: 4px; }
+.text p { font-size: 13px; color: #94a3b8; }
+
+.azul { border-left: 5px solid var(--accent); }
+.verde { border-left: 5px solid var(--success); }
+.cinza { border-left: 5px solid #64748b; text-align: left; }
