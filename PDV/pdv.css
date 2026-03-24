@@ -64,45 +64,94 @@ body { background: var(--bg); color: white; height: 100vh; overflow: hidden; }
    📱 RESPONSIVIDADE - PDV (MOBILE)
    ========================================= */
 @media (max-width: 768px) {
-    /* 1. O contentor principal: empilha produtos (cima) e carrinho (baixo) */
-    .pdv-main {
+    /* 1. Faz a página ocupar a altura exata da tela do celular, sem sobrar */
+    body, html {
+        overflow: hidden; /* Impede a página inteira de rolar */
+        height: 100%;
+    }
+
+    .pdv-container {
         display: flex;
-        flex-direction: column; /* Transforma a linha numa coluna */
-        gap: 20px;
+        flex-direction: column;
+        height: 100vh; /* Altura total do visor */
+    }
+
+    /* 2. Cabeçalho e Categorias (FIXOS NO TOPO) */
+    .pdv-header {
+        padding: 10px;
+        flex-shrink: 0; /* Impede o topo de espremer */
+    }
+
+    .categorias-bar {
+        display: flex;
+        overflow-x: auto; /* Scroll horizontal para as categorias */
+        white-space: nowrap;
+        padding: 10px 5px;
+        gap: 8px;
+        background: #f8f9fa;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .btn-categoria {
+        padding: 8px 15px;
+        font-size: 13px;
+        flex: 0 0 auto; /* Não deixa o botão encolher */
+    }
+
+    /* 3. Área Central de Produtos (ÚNICA PARTE QUE ROLA) */
+    .pdv-main {
+        flex: 1; /* Ocupa todo o espaço sobrando no meio */
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto; /* Só os produtos e o carrinho rolam aqui */
         padding: 10px;
     }
 
-    /* 2. Secção de Produtos ocupa a largura total */
     .produtos-section {
         width: 100%;
-        border-right: none; /* Remove a linha divisória lateral */
-        border-bottom: 2px solid #e0e0e0; /* Adiciona uma linha a separar do carrinho */
-        padding-bottom: 20px;
-        max-height: 50vh; /* Ocupa apenas metade do ecrã para deixar espaço para o carrinho */
-        overflow-y: auto; /* Permite fazer scroll nos produtos */
+        max-height: none; /* Deixa os produtos fluírem */
     }
 
-    /* 3. Ajuste dos botões dos produtos para ficarem em 2 colunas fáceis de tocar */
     .grid-produtos {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Cria exatamente 2 colunas */
-        gap: 10px;
+        grid-template-columns: repeat(2, 1fr); /* 2 produtos por linha */
+        gap: 8px;
     }
 
     .produto-card {
-        padding: 15px 10px; /* Aumenta a área de toque para o dedo */
+        padding: 10px;
+        font-size: 14px;
     }
 
-    /* 4. Carrinho de Compras ocupa a largura total na parte de baixo */
+    /* 4. Resumo e Carrinho (AGRUPADOS) */
     .carrinho-section {
         width: 100%;
-        padding: 10px 0;
+        margin-top: 15px;
+        border-top: 2px solid #eee;
     }
 
-    /* 5. Cabeçalho do PDV: empilha o botão de voltar e o título */
-    .pdv-header {
+    /* 5. RODAPÉ DE VALORES (FIXO NA BASE) */
+    .pdv-footer {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 15px;
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+        display: flex;
         flex-direction: column;
-        text-align: center;
         gap: 10px;
+        z-index: 100;
+    }
+
+    .total-venda {
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+    }
+
+    .btn-finalizar {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
     }
 }
