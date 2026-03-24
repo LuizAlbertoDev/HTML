@@ -34,22 +34,60 @@ body { background-color: var(--bg); color: var(--text); padding: 20px; }
 
 .cat-badge { background: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
+/* =========================================
+   📱 RESPONSIVIDADE - ESTOQUE (MOBILE)
+   ========================================= */
 @media (max-width: 768px) {
+    /* 1. Contentor Principal: dar margens seguras */
+    .estoque-container {
+        padding: 10px;
+    }
+
+    /* 2. Cabeçalho: botão de voltar, título e barra de pesquisa um por baixo do outro */
+    .estoque-header {
+        flex-direction: column;
+        align-items: stretch; /* Estica os elementos para ocuparem tudo */
+        gap: 15px;
+        text-align: center;
+    }
+
+    .titulo {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .busca-bloco input {
+        width: 100%; /* A barra de pesquisa ocupa o ecrã todo */
+        box-sizing: border-box;
+        padding: 15px; /* Mais fácil de tocar com o dedo */
+    }
+
+    /* 3. Cards de Estatísticas (Total Itens, Valor) empilhados */
+    .estoque-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .stat-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 4. A MAGIA DA TABELA NO TELEMÓVEL */
     .tabela-container {
-        overflow-x: auto; /* Cria barra de rolagem lateral se a tabela for grande */
-        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        overflow-x: auto; /* Cria a barra de rolagem horizontal */
+        -webkit-overflow-scrolling: touch; /* Torna o deslize suave em iPhones/iPads */
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-top: 15px;
     }
 
     .tabela-estoque {
-        min-width: 600px; /* Garante que a tabela não esmague o texto */
+        min-width: 650px; /* Garante que a tabela tem tamanho suficiente. Se o ecrã for menor, ativa o scroll lateral! */
     }
-
-    .estoque-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    #buscaEstoque {
-        width: 100%; /* Busca ocupa a tela toda no celular */
+    
+    .tabela-estoque th, .tabela-estoque td {
+        padding: 12px; /* Melhora o espaço de leitura */
     }
 }

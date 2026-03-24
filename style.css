@@ -41,30 +41,55 @@ body { background-color: var(--bg); color: var(--text); padding: 40px; }
 .cinza { border-left: 5px solid #64748b; text-align: left; }
 
 /* AJUSTES PARA CELULAR (Telas menores que 768px) */
+/* =========================================
+   📱 RESPONSIVIDADE - DASHBOARD (MOBILE)
+   ========================================= */
 @media (max-width: 768px) {
+    /* 1. Container Principal: dar um respiro nas bordas da tela do celular */
     .dashboard-container {
-        padding: 10px;
+        padding: 15px;
+        max-width: 100%;
     }
 
-    .dash-cards {
-        flex-direction: column; /* Empilha os cards um em cima do outro */
+    /* 2. Cabeçalho: Centralizar o título e a data, colocando um embaixo do outro */
+    .dash-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         gap: 10px;
     }
 
-    .card-metric {
-        width: 100%; /* O card ocupa a largura toda */
+    .logo {
+        font-size: 1.5rem; /* Fonte um pouco menor para não quebrar linha */
     }
 
+    /* 3. Cards de Valores: Em vez de ficarem lado a lado, viram uma fila vertical */
+    .dash-cards {
+        display: flex;
+        flex-direction: column; 
+        gap: 15px; /* Espaço entre um card e outro */
+    }
+
+    .card-metric {
+        width: 100%; /* Força o card a ocupar a tela toda */
+        padding: 20px; /* Mais espaço para o "dedão" do usuário */
+        box-sizing: border-box; /* Garante que o padding não estoure a tela */
+    }
+
+    /* 4. Botões do Menu: Ficam grandes e fáceis de tocar */
     .menu-grid {
-        grid-template-columns: 1fr; /* Apenas 1 coluna de botões */
+        display: grid;
+        grid-template-columns: 1fr; /* Apenas 1 coluna (um botão em cima do outro) */
+        gap: 15px;
     }
 
     .btn-menu {
-        padding: 15px;
-        height: auto;
+        padding: 20px 15px;
+        height: auto; /* Deixa o botão crescer conforme o texto */
+        justify-content: center; /* Centraliza o conteúdo do botão */
     }
-
-    .logo {
-        font-size: 1.2rem;
+    
+    .btn-menu .icon {
+        font-size: 2rem; /* Aumenta um pouco o ícone */
     }
 }

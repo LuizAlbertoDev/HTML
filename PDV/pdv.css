@@ -60,21 +60,49 @@ body { background: var(--bg); color: white; height: 100vh; overflow: hidden; }
 .btn-add-final { width: 100%; padding: 20px; background: var(--success); color: white; border: none; border-radius: 15px; font-weight: 900; font-size: 20px; cursor: pointer; }
 .btn-canc-final { margin-top: 15px; background: transparent; border: none; color: #94a3b8; cursor: pointer; }
 
+/* =========================================
+   📱 RESPONSIVIDADE - PDV (MOBILE)
+   ========================================= */
 @media (max-width: 768px) {
+    /* 1. O contentor principal: empilha produtos (cima) e carrinho (baixo) */
     .pdv-main {
-        flex-direction: column; /* Lista de produtos em cima, carrinho embaixo */
+        display: flex;
+        flex-direction: column; /* Transforma a linha numa coluna */
+        gap: 20px;
+        padding: 10px;
     }
 
-    .produtos-section, .carrinho-section {
+    /* 2. Secção de Produtos ocupa a largura total */
+    .produtos-section {
         width: 100%;
-        max-height: none;
+        border-right: none; /* Remove a linha divisória lateral */
+        border-bottom: 2px solid #e0e0e0; /* Adiciona uma linha a separar do carrinho */
+        padding-bottom: 20px;
+        max-height: 50vh; /* Ocupa apenas metade do ecrã para deixar espaço para o carrinho */
+        overflow-y: auto; /* Permite fazer scroll nos produtos */
     }
 
+    /* 3. Ajuste dos botões dos produtos para ficarem em 2 colunas fáceis de tocar */
     .grid-produtos {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Cards menores */
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Cria exatamente 2 colunas */
+        gap: 10px;
     }
 
-    .total-venda {
-        font-size: 1.5rem;
+    .produto-card {
+        padding: 15px 10px; /* Aumenta a área de toque para o dedo */
+    }
+
+    /* 4. Carrinho de Compras ocupa a largura total na parte de baixo */
+    .carrinho-section {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    /* 5. Cabeçalho do PDV: empilha o botão de voltar e o título */
+    .pdv-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
     }
 }
