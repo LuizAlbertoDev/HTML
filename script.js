@@ -1,5 +1,5 @@
 // BANCO DE DADOS GLOBAL DE PRODUTOS
-// Este arquivo deve ser carregado ANTES de qualquer outro script de lógica.
+
 
 const produtos = [
     // BEBIDAS (101-110)
