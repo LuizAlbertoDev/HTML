@@ -33,3 +33,23 @@ body { background-color: var(--bg); color: var(--text); padding: 20px; }
 .tabela-estoque tr:hover { background: #f8fafc; }
 
 .cat-badge { background: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+
+@media (max-width: 768px) {
+    .tabela-container {
+        overflow-x: auto; /* Cria barra de rolagem lateral se a tabela for grande */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tabela-estoque {
+        min-width: 600px; /* Garante que a tabela não esmague o texto */
+    }
+
+    .estoque-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #buscaEstoque {
+        width: 100%; /* Busca ocupa a tela toda no celular */
+    }
+}

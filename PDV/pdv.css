@@ -59,3 +59,22 @@ body { background: var(--bg); color: white; height: 100vh; overflow: hidden; }
 .menos { background: var(--danger); } .mais { background: var(--success); }
 .btn-add-final { width: 100%; padding: 20px; background: var(--success); color: white; border: none; border-radius: 15px; font-weight: 900; font-size: 20px; cursor: pointer; }
 .btn-canc-final { margin-top: 15px; background: transparent; border: none; color: #94a3b8; cursor: pointer; }
+
+@media (max-width: 768px) {
+    .pdv-main {
+        flex-direction: column; /* Lista de produtos em cima, carrinho embaixo */
+    }
+
+    .produtos-section, .carrinho-section {
+        width: 100%;
+        max-height: none;
+    }
+
+    .grid-produtos {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Cards menores */
+    }
+
+    .total-venda {
+        font-size: 1.5rem;
+    }
+}

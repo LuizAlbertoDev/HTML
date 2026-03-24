@@ -39,3 +39,32 @@ body { background-color: var(--bg); color: var(--text); padding: 40px; }
 .azul { border-left: 5px solid var(--accent); }
 .verde { border-left: 5px solid var(--success); }
 .cinza { border-left: 5px solid #64748b; text-align: left; }
+
+/* AJUSTES PARA CELULAR (Telas menores que 768px) */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 10px;
+    }
+
+    .dash-cards {
+        flex-direction: column; /* Empilha os cards um em cima do outro */
+        gap: 10px;
+    }
+
+    .card-metric {
+        width: 100%; /* O card ocupa a largura toda */
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr; /* Apenas 1 coluna de botões */
+    }
+
+    .btn-menu {
+        padding: 15px;
+        height: auto;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+}
