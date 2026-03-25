@@ -1,7 +1,9 @@
 // BANCO DE DADOS GLOBAL DE PRODUTOS
 
 
-const produtos = [
+let produtos = JSON.parse(
+    localStorage.getItem("produtos")
+) || [
     // BEBIDAS (101-110)
     { id: 1, codigo: "101", nome: "Coca-Cola 2L", categoria: "Bebidas", precoVarejo: 12.50, precoAtacado: 10.90, qtdAtacado: 6 },
     { id: 2, codigo: "102", nome: "Água Mineral 500ml", categoria: "Bebidas", precoVarejo: 2.50, precoAtacado: 1.80, qtdAtacado: 12 },
@@ -62,3 +64,53 @@ const produtos = [
     { id: 49, codigo: "509", nome: "Cenoura (kg)", categoria: "Hortifruti", precoVarejo: 5.90, precoAtacado: 4.50, qtdAtacado: 5 },
     { id: 50, codigo: "510", nome: "Melancia Inteira", categoria: "Hortifruti", precoVarejo: 25.00, precoAtacado: 20.00, qtdAtacado: 2 }
 ];
+
+// GARANTIR QUE TODOS PRODUTOS TENHAM ESTOQUE
+produtos.forEach(produto => {
+    if (produto.estoque === undefined) {
+        produto.estoque = 50; // estoque inicial padrão
+    }
+});
+
+function descontarEstoque() {
+
+    carrinho.forEach(item => {
+
+        const produto = produtos.find(p => p.id === item.id);
+
+        if (produto) {
+
+            produto.estoque -= item.quantidade;
+
+            if (produto.estoque < 0) {
+                produto.estoque = 0;
+            }
+
+        }
+
+    });
+
+    salvarProdutos();
+
+}
+
+// GARANTE QUE OS PRODUTOS VENHAM DO LOCALSTORAGE
+
+let dadosSalvos =
+    JSON.parse(
+        localStorage.getItem("produtos")
+    );
+
+if (dadosSalvos) {
+
+    produtos = dadosSalvos;
+
+} else {
+
+    // primeira vez que roda
+    localStorage.setItem(
+        "produtos",
+        JSON.stringify(produtos)
+    );
+
+}

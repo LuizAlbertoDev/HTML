@@ -1,157 +1,535 @@
+/* =========================================
+   SISTEMA DE CORES E BASE (ATACADOPRO)
+   ========================================= */
 :root { 
-    --bg: #0b1120; --card: #1e293b; --accent: #3b82f6; 
-    --success: #10b981; --danger: #ef4444; --border: #334155; 
+    --bg: #0b1120; 
+    --card: #1e293b; 
+    --accent: #3b82f6; 
+    --success: #10b981; 
+    --danger: #ef4444;
+    --border: #334155; 
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-body { background: var(--bg); color: white; height: 100vh; overflow: hidden; }
+body { 
+    background: var(--bg); 
+    color: white; 
+    height: 100vh; 
+    overflow: hidden; 
+}
 
-.pdv-container { display: flex; flex-direction: column; height: 100vh; padding: 15px; }
+/* LAYOUT PRINCIPAL */
+.pdv-container { height: 100vh; display: flex; flex-direction: column; padding: 10px; }
+.pdv-topo-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-.pdv-topo-barra { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
 
-.btn-voltar { background: #334155; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+.btn-voltar { 
+    background: var(--card); 
+    color: white; 
+    border: 1px solid var(--border); 
+    padding: 10px 18px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-weight: 800;
+}
+.pdv-layout {
+    display: flex;
+    flex-direction: column;
 
-.pdv-layout { display: grid; grid-template-columns: 400px 1fr; gap: 15px; flex: 1; overflow: hidden; }
+    gap: 15px;
 
-/* Carrinho Estilizado */
-.pdv-carrinho { background: white; border-radius: 20px; color: #1e293b; display: flex; flex-direction: column; overflow: hidden; border: 2px solid var(--border); }
+    flex: 1;
+    min-height: 0;
 
-.carrinho-header { background: #1e293b; padding: 25px; text-align: center; color: white; }
-.label-total-compra { font-size: 12px; font-weight: 900; color: #94a3b8; letter-spacing: 2px; }
-.total-grande { font-size: 48px; font-weight: 900; color: var(--success); }
+    overflow: hidden;
+}
 
-#inputBusca { width: 90%; margin: 15px auto; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; outline: none; }
+/* CARRINHO (AJUSTE DE ALTURA PARA NÃO ESCONDER O BOTÃO) */
+.pdv-carrinho {
+    background: white;
+    border-radius: 20px;
+    color: #1e293b;
 
-.lista-itens { flex: 1; overflow-y: auto; padding: 15px; }
-.item-carrinho-linha { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: 700; }
+    display: flex;
+    flex-direction: column;
 
-.pdv-footer { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f8fafc; }
-.btn-pagar { background: var(--success); color: white; border: none; border-radius: 12px; font-weight: 900; padding: 20px; cursor: pointer; font-size: 18px; grid-column: span 2; }
-.btn-limpar { background: #cbd5e1; color: #475569; border: none; border-radius: 10px; padding: 10px; cursor: pointer; grid-column: span 2; }
+    flex: 1;   /* ocupa o espaço disponível */
+    min-height: 300px;
 
-/* Grid de Produtos */
-.pdv-catalogo { background: rgba(255,255,255,0.03); border-radius: 20px; padding: 15px; display: flex; }
-.venda-grid-container { display: flex; width: 100%; gap: 15px; }
-.menu-lateral-categorias { width: 180px; display: flex; flex-direction: column; gap: 8px; }
+    overflow: hidden;
+}
 
-.btn-side-cat { background: var(--card); border: 1px solid var(--border); color: white; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: 800; text-transform: uppercase; font-size: 12px; }
-.btn-side-cat.ativa { background: var(--accent); border-color: #60a5fa; }
+.carrinho-header { background: #1e293b; padding: 12px; text-align: center; color: white; flex-shrink: 0; }
+.carrinho-header h1 { color: var(--success); font-size: 32px; font-weight: 900; }
 
-.grade-produtos-exibicao { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; overflow-y: auto; align-content: start; }
+#buscaProduto { 
+    width: 92%; 
+    margin: 10px auto; 
+    display: block; 
+    padding: 12px; 
+    border: 2px solid #e2e8f0; 
+    border-radius: 10px; 
+    outline: none; 
+    font-weight: 600;
+    flex-shrink: 0;
+}
 
-.prod-card { background: white; color: #1e293b; border-radius: 15px; padding: 15px; height: 120px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: 0.2s; border: none; }
-.prod-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
+.lista-itens { 
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 0 15px; 
+}
 
-/* Modal */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px); }
-.modal-overlay.ativa { display: flex; }
-.modal-box { background: var(--card); padding: 30px; border-radius: 25px; width: 400px; border: 1px solid var(--border); text-align: center; color: white; }
+/* FOOTER (ONDE ESTÁ O BOTÃO FINALIZAR) */
+.pdv-footer { 
+    padding: 12px; 
+    background: #f8fafc; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    border-radius: 0 0 20px 20px; 
+    flex-shrink: 0; /* IMPEDE QUE ELE SUMA */
+}
 
-.info-precos-modal { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 15px; margin: 15px 0; }
-.linha-preco { display: flex; justify-content: space-between; margin: 5px 0; }
-.valor-fechado { font-size: 35px; font-weight: 900; color: var(--success); display: block; margin-bottom: 20px; }
+.btn-pagar { 
+    background: var(--success); 
+    color: white; 
+    border: none; 
 
-.controles-qtd { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
-#qtdInput { width: 80px; height: 60px; background: #0b1120; border: none; color: white; text-align: center; font-size: 25px; font-weight: 900; border-radius: 12px; }
-.btn-q-alt { width: 60px; height: 60px; border-radius: 12px; border: none; color: white; font-size: 25px; cursor: pointer; }
-.menos { background: var(--danger); } .mais { background: var(--success); }
-.btn-add-final { width: 100%; padding: 20px; background: var(--success); color: white; border: none; border-radius: 15px; font-weight: 900; font-size: 20px; cursor: pointer; }
-.btn-canc-final { margin-top: 15px; background: transparent; border: none; color: #94a3b8; cursor: pointer; }
+    height: 38px;
+
+    padding: 6px 12px; 
+
+    border-radius: 10px; 
+
+    font-weight: 700; 
+
+    cursor: pointer; 
+
+    font-size: 14px; 
+
+    text-transform: uppercase;
+}
+
+.btn-limpar { 
+    background: #e2e8f0; 
+    color: #64748b; 
+    border: none; 
+
+    height: 30px;
+
+    padding: 4px 10px; 
+
+    border-radius: 8px; 
+
+    font-weight: bold; 
+
+    cursor: pointer;
+
+    font-size: 12px;
+}
+
+/* MENU DE CATEGORIAS */
+.pdv-categorias-area {
+    position: fixed;
+
+    top: 0;
+    right: -300px;
+
+    width: 280px;
+    height: 100%;
+
+    background: var(--bg);
+    padding: 80px 15px 20px;
+
+    transition: 0.3s;
+    z-index: 10000;
+
+    overflow-y: auto;
+
+    border-left: 1px solid var(--border);
+
+    pointer-events: none; /* NÃO BLOQUEIA CLIQUE */
+}
+
+.grid-categorias-home { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 10px; 
+    padding-bottom: 20px; 
+}
+
+.btn-side-cat { 
+    background: var(--card); 
+    color: white; 
+    border: 1px solid var(--border); 
+    padding: 20px; 
+    border-radius: 15px; 
+    font-weight: 900; 
+    cursor: pointer; 
+    text-transform: uppercase; 
+}
+
+/* CATALOGO FULLSCREEN */
+.catalogo-fullscreen { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: var(--bg); z-index: 9999; display: none; flex-direction: column; 
+}
+.catalogo-fullscreen.active { display: flex; }
+.catalogo-header { padding: 20px; background: var(--card); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+
+.btn-fechar-catalogo { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 900; cursor: pointer; }
+
+.catalogo-corpo { flex: 1; overflow-y: auto; padding: 15px; }
+.grade-produtos-full { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; padding-bottom: 60px; }
+
+.prod-card { 
+    background: white; 
+    color: #1e293b; 
+    padding: 15px; 
+    border-radius: 18px; 
+    height: 130px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    border: none; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+}
+.prod-card strong { color: var(--success); font-size: 18px; font-weight: 900; }
+
+/* MODAL QUANTIDADE */
+.modal-overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0, 0, 0, 0.9); display: none; 
+    justify-content: center; align-items: center; z-index: 10000; 
+    backdrop-filter: blur(8px);
+}
+.modal-overlay.active { display: flex; }
+.modal-box { background: var(--bg); padding: 30px; border-radius: 25px; width: 400px; text-align: center; border: 1px solid var(--border); }
+.info-precos { background: var(--card); padding: 20px; border-radius: 20px; margin: 20px 0; display: flex; flex-direction: column; gap: 10px; }
+#valorVarejo, #valorAtacado { font-weight: 900; font-size: 18px; }
+#valorAtacado { color: var(--success); }
+.subtotal-grande { color: var(--accent) !important; font-size: 28px !important; font-weight: 900 !important; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 5px;}
+
+.selector-qtd { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 20px 0; }
+.btn-cont { width: 60px; height: 60px; border-radius: 50%; background: var(--card); color: white; border: 1px solid var(--border); font-size: 24px; cursor: pointer; }
+#qtdInput { background: transparent; color: white; border: none; width: 60px; text-align: center; font-size: 32px; font-weight: 900; }
+
+.confirmar { background: var(--success); color: white; border: none; padding: 20px; border-radius: 15px; font-weight: 900; width: 100%; cursor: pointer; text-transform: uppercase; }
+.cancelar { background: transparent; color: #64748b; border: none; margin-top: 12px; cursor: pointer; font-weight: bold; }
+
+/* BOTÃO HAMBURGUER */
+
+.btn-menu-hamburguer {
+    background: var(--card);
+    color: white;
+    border: 1px solid var(--border);
+
+    padding: 10px 16px;
+    border-radius: 10px;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* MENU LATERAL */
+
+.pdv-categorias-area {
+    position: fixed;
+
+    top: 0;
+    right: -300px; /* ESCONDIDO NO DIREITO */
+
+    width: 280px;
+    height: 100%;
+
+    background: var(--bg);
+    padding: 80px 15px 20px;
+
+    transition: 0.3s;
+    z-index: 10000;
+
+    overflow-y: auto;
+
+    border-left: 1px solid var(--border);
+}
+
+/* QUANDO ABRIR */
+
+.pdv-categorias-area.open {
+    right: 0;
+    pointer-events: auto; /* AGORA PODE CLICAR */
+}
 
 /* =========================================
-   📱 RESPONSIVIDADE - PDV (MOBILE)
+   CATEGORIAS NO TOPO (DESKTOP)
    ========================================= */
-@media (max-width: 768px) {
-    /* 1. Faz a página ocupar a altura exata da tela do celular, sem sobrar */
-    body, html {
-        overflow: hidden; /* Impede a página inteira de rolar */
-        height: 100%;
+
+.topo-categorias-container {
+
+display: flex;
+align-items: center;
+gap: 10px;
+
+}
+
+/* CATEGORIAS AO LADO DO HAMBURGUER */
+
+.categorias-desktop {
+
+display: none;
+gap: 8px;
+
+}
+
+/* BOTÃO DE CATEGORIA PEQUENO */
+
+.btn-cat-topo {
+
+background: var(--card);
+color: white;
+
+border: 1px solid var(--border);
+
+padding: 8px 14px;
+
+border-radius: 10px;
+
+font-weight: 800;
+
+cursor: pointer;
+
+white-space: nowrap;
+
+}
+
+/* =========================================
+   HAMBURGUER E CATEGORIAS RESPONSIVO
+   ========================================= */
+
+/* PADRÃO: MOBILE */
+
+.btn-menu-hamburguer {
+    display: flex;
+}
+
+.categorias-desktop {
+    display: none;
+}
+
+/* DESKTOP */
+
+@media (min-width: 769px) {
+
+    /* ESCONDE HAMBURGUER */
+
+    .btn-menu-hamburguer {
+        display: none;
     }
 
-    .pdv-container {
+    /* MOSTRA CATEGORIAS */
+
+    .categorias-desktop {
         display: flex;
-        flex-direction: column;
-        height: 100vh; /* Altura total do visor */
-    }
 
-    /* 2. Cabeçalho e Categorias (FIXOS NO TOPO) */
-    .pdv-header {
-        padding: 10px;
-        flex-shrink: 0; /* Impede o topo de espremer */
-    }
-
-    .categorias-bar {
-        display: flex;
-        overflow-x: auto; /* Scroll horizontal para as categorias */
-        white-space: nowrap;
-        padding: 10px 5px;
-        gap: 8px;
-        background: #f8f9fa;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .btn-categoria {
-        padding: 8px 15px;
-        font-size: 13px;
-        flex: 0 0 auto; /* Não deixa o botão encolher */
-    }
-
-    /* 3. Área Central de Produtos (ÚNICA PARTE QUE ROLA) */
-    .pdv-main {
-        flex: 1; /* Ocupa todo o espaço sobrando no meio */
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto; /* Só os produtos e o carrinho rolam aqui */
-        padding: 10px;
-    }
-
-    .produtos-section {
-        width: 100%;
-        max-height: none; /* Deixa os produtos fluírem */
-    }
-
-    .grid-produtos {
-        grid-template-columns: repeat(2, 1fr); /* 2 produtos por linha */
-        gap: 8px;
-    }
-
-    .produto-card {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    /* 4. Resumo e Carrinho (AGRUPADOS) */
-    .carrinho-section {
-        width: 100%;
-        margin-top: 15px;
-        border-top: 2px solid #eee;
-    }
-
-    /* 5. RODAPÉ DE VALORES (FIXO NA BASE) */
-    .pdv-footer {
-        position: sticky;
-        bottom: 0;
-        background: white;
-        padding: 15px;
-        box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: column;
         gap: 10px;
-        z-index: 100;
+        align-items: center;
     }
 
-    .total-venda {
-        font-size: 1.2rem;
+    
+
+}
+
+/* =========================================
+   STATUS CAIXA CENTRALIZADO E MODERNO
+   ========================================= */
+
+.pdv-topo-barra {
+    position: relative;
+}
+
+/* CAIXA OPERACIONAL CENTRAL */
+
+.status-caixa {
+
+    position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: linear-gradient(
+        135deg,
+        #00d084,
+        #10b981
+    );
+
+    padding: 6px 16px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    color: white;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+
+    text-transform: uppercase;
+
+    pointer-events: none;
+}
+
+/* BOLINHA VERDE */
+
+.bolinha-status {
+
+    width: 10px;
+    height: 10px;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 6px #22c55e;
+}
+
+/* =========================================
+   BOTÕES MAIS COMPACTOS
+   ========================================= */
+
+.pdv-footer {
+
+    padding: 10px;
+
+    gap: 6px;
+}
+
+/* BOTÃO PAGAR */
+
+.btn-pagar {
+
+    height: 48px;
+
+    padding: 10px;
+
+    font-size: 16px;
+
+    border-radius: 10px;
+
+    font-weight: 00;
+
+    transition: 0.2s;
+}
+
+.btn-pagar:hover {
+    transform: scale(1.005);
+}
+
+/* BOTÃO LIMPAR */
+
+.btn-limpar {
+
+    height: 40px;
+
+    padding: 6px 10px;
+
+    font-size: 14px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+/* =========================================
+   VERDE MAIS ESCURO E PROFISSIONAL
+   ========================================= */
+
+.status-caixa {
+
+    background: linear-gradient(
+        135deg,
+        #065f46,   /* verde escuro */
+        #047857    /* verde profissional */
+    );
+
+    color: white;
+}
+
+/* BOLINHA STATUS MAIS ESCURA */
+
+.bolinha-status {
+
+    background: #16a34a;
+
+    box-shadow: 0 0 6px #16a34a;
+}
+
+/* =========================================
+   AJUSTE DO TOPO NO MOBILE — DEFINITIVO
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .pdv-topo-barra {
+
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        margin: 0;
+
+        gap: 6px;
     }
 
-    .btn-finalizar {
-        width: 100%;
-        padding: 15px;
-        font-size: 16px;
+    /* CAIXA OPERACIONAL */
+
+    .status-caixa {
+
+        position: static;   /* NÃO SOBREPOE */
+
+        transform: none;
+
+        flex: 1;
+
+        display: flex;
+        justify-content: center;
+
+        font-size: 13px;
+
+        padding: 4px 10px;
+
+        margin: 0 6px;
     }
+
+    /* BOTÃO MENU */
+
+    .btn-voltar {
+
+        flex-shrink: 0;
+    }
+
+    /* HAMBURGUER */
+
+    .topo-categorias-container {
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+    }
+
 }

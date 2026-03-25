@@ -1,64 +1,88 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAIXA LIVRE - ATACADOPRO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ATACADOPRO - PDV</title>
     <link rel="stylesheet" href="pdv.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="pdv-container">
-        <div class="pdv-topo-barra">
-            <button class="btn-voltar" onclick="location.href='../index.html'">← VOLTAR AO MENU</button>
-            <div class="status-caixa">🟢 CAIXA OPERACIONAL</div>
+        <header class="pdv-topo-barra">
+
+        <button class="btn-voltar" onclick="voltarMenu()">
+        ← MENU
+        </button>
+
+        <div class="status-caixa">
+        <span class="bolinha-status"></span> CAIXA OPERACIONAL
         </div>
 
-        <div class="pdv-layout">
-            <div class="pdv-carrinho">
+        <div class="topo-categorias-container">
+
+        <button class="btn-menu-hamburguer" onclick="toggleMenu()">
+        ☰
+        </button>
+
+        <div class="categorias-desktop" id="categoriasDesktop">
+        </div>
+
+        </div>
+
+        </header>
+
+        <main class="pdv-layout">
+            <section class="pdv-carrinho">
                 <div class="carrinho-header">
-                    <span class="label-total-compra">TOTAL DA COMPRA</span>
-                    <div id="totalPDV" class="total-grande">R$ 0,00</div>
+                    <p class="txt-total">TOTAL DA COMPRA</p>
+                    <h1 id="totalPDV">R$ 0,00</h1>
                 </div>
 
-                <input type="text" id="inputBusca" placeholder="BIPAR CÓDIGO OU DIGITAR NOME..." onkeypress="if(event.key === 'Enter') adicionarPorInput()">
-                
-                <div class="lista-itens" id="carrinhoItens">
-                    </div>
-                
+                <div class="busca-area">
+                    <input type="text" id="buscaProduto" placeholder="Bipe o Produto ou Pesquise Na Categoria" oninput="filtrarProdutos()">
+                </div>
+
+                <div class="lista-itens" id="carrinhoItens"></div>
+
                 <div class="pdv-footer">
                     <button class="btn-pagar" onclick="finalizarVenda()">PAGAR (F2)</button>
                     <button class="btn-limpar" onclick="limparCarrinho()">LIMPAR</button>
                 </div>
-            </div>
+            </section>
 
-            <div class="pdv-catalogo">
-                <div class="venda-grid-container">
-                    <div class="menu-lateral-categorias" id="menuLateral">
-                        </div>
-                    
-                    <div class="grade-produtos-exibicao" id="gradeProds" style="display: none;">
-                        </div>
-                </div>
-            </div>
-        </div>
+            <section class="pdv-categorias-area">
+                <div class="grid-categorias-home" id="listaCategorias"></div>
+            </section>
+        </main>
     </div>
+
+    <section id="catalogoOverlay" class="catalogo-fullscreen">
+        <div class="catalogo-header">
+            <h2 id="tituloCategoria">CATEGORIA</h2>
+            <button class="btn-fechar-catalogo" onclick="fecharCatalogo()">VOLTAR</button>
+        </div>
+        <div class="catalogo-corpo">
+            <div class="grade-produtos-full" id="gridProdutos"></div>
+        </div>
+    </section>
 
     <div id="modalQtd" class="modal-overlay">
         <div class="modal-box">
-            <h2 id="nomeProdQtd">Produto</h2>
-            <div class="info-precos-modal" id="precosModal"></div>
-            <div class="total-produto-modal">
-                <span class="label-total">SUBTOTAL</span>
-                <span id="valorTotalModal" class="valor-fechado">R$ 0,00</span>
+            <h2 id="nomeProdQtd">PRODUTO</h2>
+            <div class="info-precos">
+                <p id="valorVarejo"></p>
+                <p id="valorAtacado" class="verde"></p>
+                <p id="subtotalModal" class="subtotal-grande">SUBTOTAL R$ 0,00</p>
             </div>
-            <div class="controles-qtd">
-                <button onclick="alterarQtd(-1)" class="btn-q-alt menos">-</button>
-                <input type="number" id="qtdInput" value="1" oninput="atualizarCalculoModal()">
-                <button onclick="alterarQtd(1)" class="btn-q-alt mais">+</button>
+            <div class="selector-qtd">
+                <button class="btn-cont" onclick="alterarQtd(-1)">-</button>
+                <input type="number" id="qtdInput" value="1" readonly>
+                <button class="btn-cont" onclick="alterarQtd(1)">+</button>
             </div>
-            <button class="btn-add-final" onclick="confirmarNoCarrinho()">ADICIONAR AO CAIXA</button>
-            <button class="btn-canc-final" onclick="fecharModal()">Cancelar</button>
+            <div class="modal-buttons">
+                <button class="confirmar" onclick="confirmarNoCarrinho()">ADICIONAR AO CAIXA</button>
+                <button class="cancelar" onclick="fecharModal()">CANCELAR</button>
+            </div>
         </div>
     </div>
 
